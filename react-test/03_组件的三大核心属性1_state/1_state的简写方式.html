@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<!--react容器-->
+<div id="test4"></div>
+
+
+<script src="../react.development.js"></script>
+<script src="../react-dom.development.js"></script>
+<!-- 生产环境中不建议使用 -->
+<script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+
+<script type="text/babel">
+  class MyComponent extends React.Component {
+    // 初始化状态
+    state = {
+      isHot:true,
+      wind:'狂风'
+    }
+
+    render(){
+      console.log('render') //this指向MyComponent组件实例对象，三大重点是refs、state、props新版的hooks
+      return (<h2 onClick={this.sClick}>今天天气很{this.state.isHot ? '炎热':'凉爽'}</h2>)
+    }
+
+    // 自定义方法--要用赋值语句的形式加箭头函数
+    sClick = ()=>{ // 箭头函数没有自己的this，在箭头函数体里面调用this的时候，指向的是箭头函数外部
+      this.setState({isHot: !this.state.isHot})
+    }
+  }
+
+
+  // 2.渲染组件到dom
+  ReactDOM.render(<MyComponent/>, document.getElementById('test4'))
+</script>
+
+</body>
+</html>

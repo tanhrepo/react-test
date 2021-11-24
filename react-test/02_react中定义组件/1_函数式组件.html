@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<!--react容器-->
+<div id="test2"></div>
+
+
+<script src="../react.development.js"></script>
+<script src="../react-dom.development.js"></script>
+<!-- 生产环境中不建议使用 -->
+<script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+
+<script type="text/babel"> // babel翻译完后开启严格模式，禁止函数内部的this指向window
+  // 1.创建函数式组件(简单组件，无state)
+  function Demo(){
+    console.log(this)// 这里的this是undefined，因为babel翻译完后开启严格模式，禁止函数内部的this指向window
+    return <h2>函数定义的组件</h2>
+  }
+
+  // 2.渲染组件到dom
+  ReactDOM.render(<Demo/>,document.getElementById('test2'))
+
+</script>
+
+</body>
+</html>

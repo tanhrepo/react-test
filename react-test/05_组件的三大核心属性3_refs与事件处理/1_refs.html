@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<!--react容器-->
+<div id="test4"></div>
+
+
+<script src="../react.development.js"></script>
+<script src="../react-dom.development.js"></script>
+<!-- 生产环境中不建议使用 -->
+<script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+<script src="../prop-types.js"></script>
+
+<script type="text/babel">
+  class Mine extends React.Component {
+    state = {}
+
+    render() {
+      return (
+        <div>
+          <input ref="input1" type="text" placeholder="点击按钮提示数据"/>
+          <button onClick={this.showData}>点击提示左边的数据</button>
+          <input type="text" placeholder="失去焦点提示数据"/>
+        </div>
+      )
+    }
+
+    showData = () => {
+      console.log(this)
+      alert(this.refs.input1.value)
+    }
+
+  }
+
+  // 2.渲染组件到dom
+  ReactDOM.render(<Mine/>, document.getElementById('test4'))
+</script>
+
+</body>
+</html>

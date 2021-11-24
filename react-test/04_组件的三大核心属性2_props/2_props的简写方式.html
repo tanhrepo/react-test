@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<!--react容器-->
+<div id="test4"></div>
+<div id="test5"></div>
+
+
+<script src="../react.development.js"></script>
+<script src="../react-dom.development.js"></script>
+<!-- 生产环境中不建议使用 -->
+<script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+<script src="../prop-types.js"></script>
+
+<script type="text/babel">
+  class Mine extends React.Component {
+    // 构造器是否接受props，是否传递给super，取决于：是否要在构造器内部通过this访问props
+    constructor(props) {
+      super(props);
+      console.log('constructor',this.props)
+    }
+
+    // 初始化状态
+    state = {
+      isHot: true,
+      wind: '狂风'
+    }
+
+    static propTypes = {
+      name:PropTypes.string.isRequired,// 限制name必传且为字符串
+      age:PropTypes.number,// 限制age为number
+      speak:PropTypes.func // 限制speak为函数，不能写为function，会和js里面默认的函数的关键字发生冲突。
+    }
+
+    static defaultProps = {
+      sex:'girl',//默认为girl
+    }
+
+    render() {
+      console.log('render') //this指向MyComponent组件实例对象，三大重点是refs、state、props新版的hooks
+      return (
+        <ul>
+          <li>{this.props.name}</li>
+          <li>{this.props.age}</li>
+          <li>{this.props.sex}</li>
+        </ul>
+      )
+    }
+
+    // 自定义方法--要用赋值语句的形式加箭头函数
+    sClick = () => { // 箭头函数没有自己的this，在箭头函数体里面调用this的时候，指向的是箭头函数外部
+      this.setState({isHot: !this.state.isHot})
+    }
+  }
+
+  const p = {
+    name: 'jerry',
+    age: 21,
+    sex: 'boy'
+  }
+  // 2.渲染组件到dom
+  ReactDOM.render(<Mine name='tom' age={24}/>, document.getElementById('test4'))
+  ReactDOM.render(<Mine {...p} />, document.getElementById('test5'))
+  // ...展开运算符,react里面展开运算符操作对象仅仅适用于标签上面的传递，不可以随便用。这里的{}是表示要在里面写js了，真正的语法只有那个`...p`,
+  // {...p}和js里面原生的const a = {...p}不是同一个意思
+</script>
+
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!--
+ * @Author: tanhong
+ * @Date: 2021-10-20 14:12:52
+ * @LastEditTime: 2021-11-16 17:12:36
+ * @LastEditors: tanhong
+ * @FilePath: \react-test\01_JSX\jsx.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+    <meta charset="UTF-8">
+<head>
+    <title>Title</title>
+</head>
+<style>
+    .title{
+        font-size: 22px;
+        background: red;
+    }
+</style>
+<body>
+<!--react容器-->
+<div id="test"></div>
+<div id="test1"></div>
+
+
+<script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+<script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+<!-- 生产环境中不建议使用 -->
+<script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+<!--jsx的语法规则-->
+
+<script type="text/babel">
+    const myId = 'aTgUiGu';
+    const myData = 'Hello,React';
+    const data = ['angular','react','vue']
+    // <!--1.定义虚拟DOM-->
+    const VDOM = (
+        <div>
+            <h2 className="title" id={myId.toLowerCase()}>
+                <span>{myData.toLowerCase()}</span>
+            </h2>
+            <h2 className="title" id={myId.toUpperCase()}>
+                <span style={{color:'white',fontSize:'33px'}}>{myData.toUpperCase()}</span>
+            </h2>x
+            <input type="text"/>
+        </div>
+
+    )
+    const HDOM = (
+        <div>
+            <h1>前端js框架列表</h1>
+            <ul>
+                {
+                    data.map((item,index) => {
+                        return <li key={index}>{item}</li>
+                    })
+                }
+            </ul>
+        </div>
+    )
+    // 2.渲染到页面
+    ReactDOM.render(VDOM,document.getElementById('test'))
+    ReactDOM.render(HDOM,document.getElementById('test1'))
+
+//    jsx语法规则：
+//     1. 定义虚拟DOM时，不要写引号
+//     2. 标签中混入js表达式(不是js代码)要用{}
+//     3. 样式的类名指定不要用class，要用className。
+//     4. 内联样式，要用style={{key:value}}的形式去写，{{}}，外面的花括号表示要写js了，里面的花括号表示是一个对象。
+//     5. jsx里面只有一个根标签，和vue一样
+//     6.标签必须闭合，比如<input type="text"/>
+//     7. 标签首字母
+//         (1). 若小写字母开头，则将该标签转为html中的同名标签，如果html中无该标签对应的同名元素，则报错。
+//         (2). 若大写字母开头，react就去渲染对应的组件，若组件没有定义，则报错
+//     互联网产品，从业者淘汰，市场对产品要求越来越高，专业人才，只有产品做好了。技术是合格的吗，数据劫持。
+//     学历要求更高，学历本身不重要，学习能力和学习习惯，学习效率及其差。架构师
+// 1. websocket，学习流程，写一个数据劫持。js基本功。架构。无从下手。亚健康的技术。知识分子学术派的心态。不要带功利心去学习。
+// 2. 转化不了自己的生产力，一直在学习与自己水平不相符的内容。重新学习。技术是从0到1的过程。让程序更加健壮。
+// 3. 不要照单全收，
+// 4. 思维逻辑，程序设计，架构封装，降维打击，过滤，
+// 5. 计划，体系化，回炉重造
+// 6. 
+
+// 1.不要透支学习能力，
+
+</script>
+</body>
+</html>

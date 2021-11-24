@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<!--react容器-->
+<div id="test4"></div>
+
+
+<script src="../react.development.js"></script>
+<script src="../react-dom.development.js"></script>
+<!-- 生产环境中不建议使用 -->
+<script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+<script src="../prop-types.js"></script>
+
+<script type="text/babel">
+  class Mine extends React.Component {
+    state = {
+      isHot:true
+    }
+    //React.createRef()调用后返回一个容器，该容器可以存储ref所标识的节点，该容器专人专用，用几个就创建几个，react最推荐的写法
+    myRef = React.createRef()
+
+    render() {
+      return (
+        <div>
+          <h2>天气{this.state.isHot?'热':'冷'}</h2>
+          <input ref={this.myRef} type="text" placeholder="点击按钮提示数据"/>
+          <button onClick={this.showData}>点击提示左边的数据</button>
+
+        </div>
+      )
+    }
+
+    showData = () => {
+      console.log(this.myRef)
+      alert(this.myRef.current.value)
+    }
+
+  }
+
+  // 2.渲染组件到dom
+  ReactDOM.render(<Mine/>, document.getElementById('test4'))
+</script>
+
+</body>
+</html>

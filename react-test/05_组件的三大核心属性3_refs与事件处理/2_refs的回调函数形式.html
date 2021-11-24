@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<!--react容器-->
+<div id="test4"></div>
+
+
+<script src="../react.development.js"></script>
+<script src="../react-dom.development.js"></script>
+<!-- 生产环境中不建议使用 -->
+<script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+<script src="../prop-types.js"></script>
+
+<script type="text/babel">
+  class Mine extends React.Component {
+    state = {
+      isHot:true
+    }
+
+    render() {
+      return (
+        <div>
+          <h2>天气{this.state.isHot?'热':'冷'}</h2>
+          {/*<input ref={ c => {this.input1 = c;console.log('@',this.input1)}} type="text" placeholder="点击按钮提示数据"/>//内联函数*/}
+          <input ref={this.saveInput} type="text" placeholder="点击按钮提示数据"/>
+          <button onClick={this.showData}>点击提示左边的数据</button>
+          <button onClick={this.showDate}>点击提示左边的数据</button><br/>
+
+        </div>
+      )
+    }
+    //如果 ref 回调函数是以内联函数的方式定义的，在更新过程中它会被执行两次，第一次传入参数 null，然后第二次会传入参数 DOM 元素。
+    // 这是因为在每次渲染时会创建一个新的函数实例，所以 React 清空旧的 ref 并且设置新的
+    //(c) => {this.input1 = c}，回调函数，自己定义的不是自己调用的，让react自己去调用
+    showData = () => {
+      console.log(this)
+      alert(this.input1.value)
+    }
+    showDate = () => {
+      this.setState({
+        isHot: !this.state.isHot
+      })
+    }
+    saveInput = (c) =>{
+      this.input1 = c;
+      console.log('@',c)
+    }
+
+  }
+
+  // 2.渲染组件到dom
+  ReactDOM.render(<Mine/>, document.getElementById('test4'))
+</script>
+
+</body>
+</html>

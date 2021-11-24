@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<!--react容器-->
+<div id="test3"></div>
+
+
+<script src="../react.development.js"></script>
+<script src="../react-dom.development.js"></script>
+<!-- 生产环境中不建议使用 -->
+<script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+
+<script type="text/babel"> // babel翻译完后开启严格模式，禁止函数内部的this指向window
+// 1.创建类式组件(复杂组件，有state)
+class MyComponent extends React.Component{
+  // 构造器调用1次
+  constructor() {
+    super();
+    // 初始化状态
+    this.state = {
+      isHot : true,
+      wind:'狂风'
+    }
+    // 解决stateClick中的this指向的问题
+    this.sClick = this.stateClick.bind(this)
+
+  }
+  // render调用1+n次 1是初始化那一次，n是状态更新的那次
+  render(){
+    console.log('render') //this指向MyComponent组件实例对象，三大重点是refs、state、props新版的hooks
+    return (<h2 onClick={this.sClick}>今天天气很{this.state.isHot ? '炎热':'凉爽'}</h2>)
+  }
+
+  stateClick(){
+    console.log(this)
+    // 作为onclick的回调，所以不是通过实例调用给，是直接调用的
+    // this.state.isHot = !this.state.isHot //状态state不可以直接更改，要借助一个内置的api
+    this.setState({isHot: !this.state.isHot}) // setState是合并而不是替换
+  }
+}
+
+
+// 2.渲染组件到dom
+ReactDOM.render(<MyComponent/>,document.getElementById('test3'))
+</script>
+
+</body>
+</html>
