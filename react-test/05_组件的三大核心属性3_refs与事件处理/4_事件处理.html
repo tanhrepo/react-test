@@ -17,27 +17,38 @@
 
 <script type="text/babel">
   class Mine extends React.Component {
+    // 1. 通过onXxx属性指定事件处理函数（注意大小写）
+    //    a. React使用的是自定义（合成）事件，而不是使用原生的dom事件 ---- 为了更好的兼容性
+    //    b. React中的事件是通过事件委托的方式处理的（委托给组件最外层的元素） ---- 为了更加高效
+    // 2. 通过event.target得到发生事件DOM元素对象
     state = {
-      isHot:true
+      isHot: true
     }
-    //React.createRef()调用后返回一个容器，该容器可以存储ref所标识的节点，该容器专人专用，用几个就创建几个，react最推荐的写法
+    // 创建ref容器
     myRef = React.createRef()
 
-    render() {
-      return (
-        <div>
-          <h2>天气{this.state.isHot?'热':'冷'}</h2>
-          <input ref={this.myRef} type="text" placeholder="点击按钮提示数据"/>
-          <button onClick={this.showData}>点击提示左边的数据</button>
-
-        </div>
-      )
-    }
-
+    // 展示输入框的数据
     showData = () => {
       console.log(this.myRef)
       alert(this.myRef.current.value)
     }
+
+    showDate = (event) => {
+      console.log(event)
+      alert(event.target.value)
+    }
+
+    render() {
+      return (
+        <div>
+          <h2>天气{this.state.isHot ? '热' : '冷'}</h2>
+          <input ref={this.myRef} type="text" placeholder="点击按钮提示数据"/>
+          <button onClick={this.showData}>点击提示左边的数据</button>
+          <input onBlur={this.showDate} type="text" placeholder="失去焦点提示数据"/>
+        </div>
+      )
+    }
+
 
   }
 

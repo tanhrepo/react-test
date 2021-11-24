@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<!--react容器-->
+<div id="test4"></div>
+
+
+<script src="../react.development.js"></script>
+<script src="../react-dom.development.js"></script>
+<!-- 生产环境中不建议使用 -->
+<script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+<script src="../prop-types.js"></script>
+
+<script type="text/babel">
+  class Mine extends React.Component {
+
+    submitForm = (event) => {
+      event.preventDefault() // 阻止默认的提交事件
+      alert(`${this.username.value},${this.password.value}`)
+    }
+
+    render() {
+      return (
+        <div>
+          <form action="" onSubmit={this.submitForm}>
+            用户名：<input ref={c => this.username = c} type="text" name="username" placeholder="请输入用户名"/>
+            密码：<input ref={c => this.password = c} type="password" name='password' placeholder="请输入密码"/>
+            <button>登录</button>
+          </form>
+        </div>
+      )
+    }
+
+
+  }
+
+  // 2.渲染组件到dom
+  ReactDOM.render(<Mine />, document.getElementById('test4'))
+</script>
+
+</body>
+</html>
